@@ -146,7 +146,7 @@ namespace UrhoCharts.Forms
         {
             base.OnUpdate(timeStep);
 
-            if ((_lastChart != Chart) && (Chart.IsValid == true))
+            if ((_lastChart != Chart) && (Chart?.IsValid == true))
             {
                 CreateChartAsync();
                 _lastChart = Chart;
