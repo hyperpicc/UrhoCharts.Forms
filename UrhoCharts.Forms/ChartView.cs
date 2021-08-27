@@ -30,16 +30,19 @@ namespace UrhoCharts.Forms
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 var view = bindable as ChartView;
-                if (view._application == null)
+                if (view._application != null)
                 {
-                    await Task.Delay(300);
-                    view._application = await view.Show<ChartApplication>(
-                        new Urho.ApplicationOptions
-                        {
-                            Orientation = Urho.ApplicationOptions.OrientationType.Landscape,
-                            NoSound     = true,
-                        });
+                    await view._application.Exit();
+                    OnDestroy();
                 }
+
+                await Task.Delay(300);
+                view._application = await view.Show<ChartApplication>(
+                    new Urho.ApplicationOptions
+                    {
+                        Orientation = Urho.ApplicationOptions.OrientationType.Landscape,
+                        NoSound     = true,
+                    });
 
                 view._application.Chart = view.Chart;
             });
